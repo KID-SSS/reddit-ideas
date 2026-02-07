@@ -1,0 +1,72 @@
+{
+  "reports": [
+    {
+      "date": "2026-02-07",
+      "total": 20,
+      "recommended": 0,
+      "avgScore": 31,
+      "ideas": [
+        {
+          "rank": 1,
+          "title": "App idea: Capture random ideas quickly",
+          "total": 33,
+          "business": 5,
+          "technical": 9,
+          "demand": 7,
+          "innovation": 5,
+          "competition": 7,
+          "subreddit": "r/SomebodyMakeThis",
+          "url": "https://www.reddit.com/r/SomebodyMakeThis/comments/1pspcpj/app_idea_capture_random_ideas_quickly/"
+        },
+        {
+          "rank": 2,
+          "title": "Mobile App Idea",
+          "total": 33,
+          "business": 5,
+          "technical": 8,
+          "demand": 8,
+          "innovation": 5,
+          "competition": 7,
+          "subreddit": "r/SomebodyMakeThis",
+          "url": "https://www.reddit.com/r/SomebodyMakeThis/comments/1m0669v/mobile_app_idea/"
+        },
+        {
+          "rank": 3,
+          "title": "Hey, quick idea check 👋",
+          "total": 33,
+          "business": 5,
+          "technical": 10,
+          "demand": 6,
+          "innovation": 5,
+          "competition": 7,
+          "subreddit": "r/AppIdeas",
+          "url": "https://www.reddit.com/r/AppIdeas/comments/1qfkqmc/hey_quick_idea_check/"
+        },
+        {
+          "rank": 4,
+          "title": "An app to validate your ideas and take you to product-market fit",
+          "total": 32,
+          "business": 6,
+          "technical": 8,
+          "demand": 6,
+          "innovation": 5,
+          "competition": 7,
+          "subreddit": "r/SomebodyMakeThis",
+          "url": "https://www.reddit.com/r/SomebodyMakeThis/comments/1ga816w/an_app_to_validate_your_ideas_and_take_you_to/"
+        },
+        {
+          "rank": 5,
+          "title": "r/SomebodyMakeThis - Dating app for women in their 40's",
+          "total": 32,
+          "business": 5,
+          "technical": 8,
+          "demand": 7,
+          "innovation": 5,
+          "competition": 7,
+          "subreddit": "r/SomebodyMakeThis",
+          "url": "https://www.reddit.com/r/SomebodyMakeThis/new/"
+        }
+      ]
+    }
+  ]
+}
