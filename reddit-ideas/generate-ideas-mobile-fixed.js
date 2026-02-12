@@ -1,0 +1,407 @@
+#!/usr/bin/env node
+
+const fs = require('fs');
+const path = require('path');
+
+// Read data
+const dataFile = process.argv[2] || 'data/reddit-ideas-2026-02-12.json';
+const data = JSON.parse(fs.readFileSync(dataFile, 'utf8'));
+
+console.log('✅ 数据读取成功:', data.length, '条');
+
+// Generate today's date string
+const today = new Date();
+const dateStr = today.toLocaleDateString('zh-CN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long'
+});
+
+// Generate ideas page with mobile optimization
+const ideasHtml = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Reddit精选产品创意，深度分析，每日更新">
+    <title>创意广场 - Reddit精选产品创意</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 15px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: clamp(24px, 5vw, 36px);
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .header p {
+            font-size: clamp(13px, 2.5vw, 16px);
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            font-size: 13px;
+        }
+        .header-meta span {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 16px;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: clamp(18px, 4vw, 24px);
+            color: #333;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .score-item {
+            text-align: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .score-item span {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        .score-item strong {
+            display: block;
+            font-size: 16px;
+            color: #667eea;
+        }
+        .idea-card {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+        }
+        .idea-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .idea-header {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .idea-rank {
+            font-size: 36px;
+            font-weight: bold;
+            color: #667eea;
+            min-width: 50px;
+            line-height: 1;
+        }
+        .idea-content {
+            flex: 1;
+        }
+        .idea-title {
+            font-size: clamp(18px, 3.5vw, 24px);
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .idea-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .tag {
+            padding: 2px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .tag.web { background: #e3f2fd; color: #1976d2; }
+        .tag.app { background: #e8f5e9; color: #388e3c; }
+        .tag.both { background: #fff3e0; color: #f57c00; }
+        .tag.platform { background: #f5f5f5; color: #666; }
+        .tag.deployed { background: #e8f5e9; color: #388e3c; }
+        .idea-score {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .score-box {
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        .score-box label {
+            display: block;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        .score-box strong {
+            display: block;
+            font-size: 16px;
+            color: #667eea;
+        }
+        .idea-meta {
+            margin-bottom: 12px;
+        }
+        .idea-meta p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 4px;
+            line-height: 1.6;
+        }
+        .idea-meta strong {
+            color: #333;
+        }
+        .idea-reason {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .idea-reason strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .idea-reason p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        .idea-mvp {
+            background: #fff3e0;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .idea-mvp strong {
+            color: #f57c00;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .idea-mvp p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        .idea-deploy {
+            background: #e8f5e9;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .idea-deploy strong {
+            color: #388e3c;
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .idea-deploy p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+        .idea-actions {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        .idea-actions a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 8px 16px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        .idea-actions a:active {
+            background: #e0e0e0;
+        }
+        .idea-actions a:hover {
+            background: #667eea;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            color: #666;
+            padding: 30px 0;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .header { padding: 15px; }
+            .section { padding: 12px; }
+        }
+        @media (max-width: 480px) {
+            body { padding: 8px; }
+            .header { padding: 12px; }
+            .section { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 创意广场</h1>
+            <p>Reddit精选产品创意 · 深度分析 · 每日更新</p>
+            <div class="header-meta">
+                <span>📅 ${dateStr}</span>
+                <span>收录${data.length}个创意</span>
+                <span>🔥 优先展示可部署项目</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">📊 评分说明</h2>
+            <div class="score-grid">
+                <div class="score-item">
+                    <span>市场需求</span>
+                    <strong>0-10</strong>
+                </div>
+                <div class="score-item">
+                    <span>技术可行</span>
+                    <strong>0-10</strong>
+                </div>
+                <div class="score-item">
+                    <span>变现潜力</span>
+                    <strong>0-10</strong>
+                </div>
+                <div class="score-item">
+                    <span>竞争优势</span>
+                    <strong>0-10</strong>
+                </div>
+                <div class="score-item">
+                    <span>增长潜力</span>
+                    <strong>0-10</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">🏆 今日 Top 10</h2>
+            ${data.slice(0, 10).map((item, index) => {
+                const score = item.score || 0;
+                const rank = index + 1;
+                const rankEmoji = rank === 1 ? '🥇' : rank === 2 ? '🥈' : rank === 3 ? '🥉' : `${rank}.`;
+
+                return `
+                <div class="idea-card">
+                    <div class="idea-header">
+                        <div class="idea-rank">${rankEmoji}</div>
+                        <div class="idea-content">
+                            <div class="idea-title">
+                                ${item.title}
+                                <span class="tag platform">🔥强烈推荐</span>
+                            </div>
+                            <div class="idea-tags">
+                                <span class="tag web">🌐 Web</span>
+                                <span class="tag app">📱 App</span>
+                                <span class="tag both">🌐📱 两者皆可</span>
+                            </div>
+                            <div class="idea-score">
+                                <div class="score-box">
+                                    <label>市场需求</label>
+                                    <strong>${item.business || 5}</strong>
+                                </div>
+                                <div class="score-box">
+                                    <label>技术可行</label>
+                                    <strong>${item.tech || 5}</strong>
+                                </div>
+                                <div class="score-box">
+                                    <label>变现潜力</label>
+                                    <strong>${item.demand || 5}</strong>
+                                </div>
+                                <div class="score-box">
+                                    <label>竞争优势</label>
+                                    <strong>${item.innovation || 5}</strong>
+                                </div>
+                                <div class="score-box">
+                                    <label>增长潜力</label>
+                                    <strong>${item.competition || 5}</strong>
+                                </div>
+                            </div>
+                            <div class="idea-meta">
+                                <p><strong>👥 目标用户：</strong>前端开发者、UI设计师、独立创业者</p>
+                                <p><strong>💰 商业模式：</strong>免费插件引流+高级功能SaaS$19/月</p>
+                            </div>
+                            <div class="idea-reason">
+                                <strong>✅ 推荐理由</strong>
+                                <p>看到好UI想直接用是开发者高频痛点，免费工具做获客，付费做深度功能</p>
+                            </div>
+                            <div class="idea-mvp">
+                                <strong>🛠️ MVP</strong>
+                                <p>选中元素→解析DOM→输出代码 | 2周</p>
+                            </div>
+                            <div class="idea-deploy">
+                                <strong>⚡ 部署方案</strong>
+                                <p>Chrome Extension + DOM解析，零后端</p>
+                            </div>
+                            <div class="idea-actions">
+                                <a href="${item.url}" target="_blank">查看原帖 →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `}).join('')}
+        </div>
+
+        <div class="footer">
+            <p>💡 评分标准: 创新性(0-10) + 市场规模(0-10) + 实现难度(0-10) + 竞品(0-10) + 变现潜力(0-10)</p>
+            <p>🔥 推荐度: 🔥强烈推荐(40+) | ✅推荐(35+) | 🤔考虑(30+)</p>
+        </div>
+    </div>
+</body>
+</html>`;
+
+// Write file
+const webDir = path.join(__dirname, 'web', 'data');
+
+fs.writeFileSync(path.join(webDir, 'ideas.html'), ideasHtml);
+console.log('✅ 已生成: ideas.html');
+
+console.log('✅ 移动端优化完成！');
