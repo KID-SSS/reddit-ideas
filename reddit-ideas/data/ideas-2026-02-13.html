@@ -60,6 +60,63 @@
             text-decoration: none;
         }
         .back:hover { color: #333; }
+        .tags {
+            font-size: 11px;
+            color: #666;
+        }
+        .tag {
+            background: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .deployment {
+            font-size: 11px;
+            color: #1e8e3e;
+            margin-top: 4px;
+        }
+        .deployment-icon {
+            margin-right: 2px;
+        }
+        .source {
+            font-size: 11px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .source a {
+            color: #666;
+        }
+        .source a:hover {
+            color: #1a73e8;
+        }
+        .target-users {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .business-model {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .reason {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .mvp {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .ratings {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+        .rating-item {
+            margin-bottom: 2px;
+        }
     </style>
 </head>
 <body>
@@ -67,7 +124,7 @@
         <a href="index.html" class="back">← 返回广场中心</a>
         <h1>创意广场 - 今日创意 (2026年2月13日)</h1>
         <p class="meta">
-            共 20 个创意 | 数据来源: Reddit | 评分标准: 创新性(0-10) + 市场规模(0-10) + 实现难度(0-10) + 竞品(0-10) + 变现潜力(0-10)
+            共 20 个创意/需求 | 数据来源: Reddit | 评分标准: 创新性(0-10) + 市场规模(0-10) + 实现难度(0-10) + 竞品(0-10) + 变现潜力(0-10)
         </p>
         <table>
             <thead>
@@ -88,15 +145,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1dwmjp2/golden_app_ideas/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -107,15 +174,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1pspcpj/app_idea_capture_random_ideas_quickly/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -126,15 +203,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1p01jsa/softwareappidea/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -145,15 +232,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1ph7zem/app_idea_an_adhd_app_that_lets_you_brain_dump_all/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -164,15 +261,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/q3c4xu/app_idea/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -183,15 +290,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1m0669v/mobile_app_idea/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -202,15 +319,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: unknown</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -221,15 +348,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1ga816w/an_app_to_validate_your_ideas_and_take_you_to/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -240,15 +377,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1qvmkdz/app_idea_dating_app_for_women_in_their_40s_who/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -259,15 +406,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/SomebodyMakeThis/comments/1gmqibc/app_idea_validation/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: SomebodyMakeThis</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -278,15 +435,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qq232c/behavioral_spending_friction_app/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -297,15 +464,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qlp78n/i_want_to_build_something_but_i_have_no_ideas/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -316,15 +493,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qlkkli/i_built_a_locationbased_reminder_app_because_i/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -335,15 +522,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qnl1c1/this_app_makes_40000month_so_i_built_my_own_ai/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -354,15 +551,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qg2nn9/do_competitions_organized_for_small_groups_of/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -373,15 +580,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qn0smv/inbound_spamscam_communication_app/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -392,15 +609,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qod7ke/validation_of_an_idea_for_a_mobile_app/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -411,15 +638,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qgo09f/what_app_do_you_wish_existed/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -430,15 +667,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qk9rdo/if_you_build_this_idea_youll_become_a_millionaire/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
@@ -449,15 +696,25 @@
                         <div style="margin-top: 4px;">
                             <a href="https://www.reddit.com/r/AppIdeas/comments/1qj7jwy/idea_notes_that_work_app_name_is_havel/" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
+                        <div class="tags">
+                            <span class="tag">创意</span>
+                            
+                        </div>
+                        <div class="deployment">需要后端支持 | 建议使用Vercel/Cloudflare</div>
+                        <div class="target-users">👥 相关用户</div>
+                        <div class="business-model">💰 免费+订阅制</div>
+                        <div class="reason">✅ 市场需求明确，竞争格局清晰</div>
+                        <div class="mvp">🛠️ 核心功能→基础UI→测试 | 2-3周</div>
+                        <div class="source">🌐 来源: Reddit: AppIdeas</div>
                     </td>
                     <td class="score" style="font-size: 18px;">0</td>
                     <td><span class="recommendation low">🤔考虑</span></td>
                     <td style="font-size: 12px;">
-                        <div>💰 商业: 0/10</div>
-                        <div>🔧 技术: 0/10</div>
-                        <div>👥 需求: 0/10</div>
-                        <div>💡 创新: 0/10</div>
-                        <div>🏆 竞品: 0/10</div>
+                        <div class="rating-item">💰 商业: 0/10</div>
+                        <div class="rating-item">🔧 技术: 0/10</div>
+                        <div class="rating-item">👥 需求: 0/10</div>
+                        <div class="rating-item">💡 创新: 0/10</div>
+                        <div class="rating-item">🏆 竞品: 0/10</div>
                     </td>
                 </tr>
 
