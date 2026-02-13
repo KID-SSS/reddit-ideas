@@ -26,21 +26,126 @@
             margin-bottom: 30px;
             font-size: 14px;
         }
+
+        /* 搜索和筛选区域 */
+        .search-filter-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .filter-tag {
+            padding: 8px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            background: white;
+            color: #666;
+        }
+
+        .filter-tag:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-tag.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+
+        .filter-tag.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .sort-select {
+            margin-left: auto;
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .results-info {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #666;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
+
         th, td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #eee;
         }
+
         th {
             background: #f8f8f8;
             font-weight: 600;
             color: #333;
         }
+
         tr:hover { background: #fafafa; }
         .score { font-weight: bold; }
         .recommendation {
@@ -74,9 +179,6 @@
             font-size: 11px;
             color: #1e8e3e;
             margin-top: 4px;
-        }
-        .deployment-icon {
-            margin-right: 2px;
         }
         .source {
             font-size: 11px;
@@ -117,6 +219,38 @@
         .rating-item {
             margin-bottom: 2px;
         }
+
+        /* 动画效果 */
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .filter-tags {
+                gap: 8px;
+            }
+
+            .filter-tag {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .filter-options {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .sort-select {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -126,6 +260,41 @@
         <p class="meta">
             共 20 个创意/需求 | 数据来源: Reddit | 评分标准: 创新性(0-10) + 市场规模(0-10) + 实现难度(0-10) + 竞品(0-10) + 变现潜力(0-10)
         </p>
+
+        <!-- 搜索和筛选区域 -->
+        <div class="search-filter-section">
+            <input type="text" id="searchInput" class="search-input" placeholder="🔍 搜索创意/需求...">
+
+            <div class="filter-tags" id="filterTags">
+                <div class="filter-tag active" data-filter="all">全部</div>
+            </div>
+
+            <div class="filter-options">
+                <div class="filter-option">
+                    <input type="checkbox" id="filterDirectDeploy" data-filter="directDeploy">
+                    <label for="filterDirectDeploy">⚡ 可直接部署</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filterBackend" data-filter="backend">
+                    <label for="filterBackend">🔧 需要后端</label>
+                </div>
+                <div class="filter-option">
+                    <input type="checkbox" id="filterHighScore" data-filter="highScore">
+                    <label for="filterHighScore">🔥 强烈推荐 (40+)</label>
+                </div>
+                <select id="sortSelect" class="sort-select">
+                    <option value="score-desc">按评分降序</option>
+                    <option value="score-asc">按评分升序</option>
+                    <option value="date-desc">按时间降序</option>
+                    <option value="date-asc">按时间升序</option>
+                </select>
+            </div>
+
+            <div class="results-info">
+                找到 <span id="resultsCount">0</span> 个结果
+            </div>
+        </div>
+
         <table>
             <thead>
                 <tr>
@@ -136,9 +305,9 @@
                     <th width="25%">评分详情</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tableBody">
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Golden App Ideas : r/SomebodyMakeThis - Reddit"' data-score='0'>
                     <td>1</td>
                     <td>
                         <strong>黄金 应用 创意s : r/SomebodyMakeThis - Reddit</strong>
@@ -167,7 +336,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"App idea: Capture random ideas quickly : r/SomebodyMakeThis"' data-score='0'>
                     <td>2</td>
                     <td>
                         <strong>应用 创意: 捕捉 随机 创意s 快速ly : r/SomebodyMakeThis</strong>
@@ -196,7 +365,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Software/App-Idea : r/SomebodyMakeThis - Reddit"' data-score='0'>
                     <td>3</td>
                     <td>
                         <strong>软件/应用-创意 : r/SomebodyMakeThis - Reddit</strong>
@@ -225,7 +394,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"App idea: An ADHD app that lets you brain dump all your thoughts to ..."' data-score='0'>
                     <td>4</td>
                     <td>
                         <strong>应用 创意: An 注意力缺陷 应用 that lets you 思维倾倒 all your 想法 to ...</strong>
@@ -254,7 +423,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"App idea : r/SomebodyMakeThis - Reddit"' data-score='0'>
                     <td>5</td>
                     <td>
                         <strong>应用 创意 : r/SomebodyMakeThis - Reddit</strong>
@@ -283,7 +452,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Mobile App Idea : r/SomebodyMakeThis - Reddit"' data-score='0'>
                     <td>6</td>
                     <td>
                         <strong>移动端 应用 创意 : r/SomebodyMakeThis - Reddit</strong>
@@ -312,7 +481,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Somebody Make This"' data-score='0'>
                     <td>7</td>
                     <td>
                         <strong>Somebody 做这个</strong>
@@ -341,7 +510,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"An app to validate your ideas and take you to product-market fit"' data-score='0'>
                     <td>8</td>
                     <td>
                         <strong>An 应用 to 验证 your 创意s and take you to 产品-市场 fit</strong>
@@ -370,7 +539,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"APP idea: Dating app for women in their 40's who want to get married"' data-score='0'>
                     <td>9</td>
                     <td>
                         <strong>应用 创意: 约会 应用 for women in their 40's who 想要 to get married</strong>
@@ -399,7 +568,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"App Idea Validation : r/SomebodyMakeThis - Reddit"' data-score='0'>
                     <td>10</td>
                     <td>
                         <strong>应用 创意 Validation : r/SomebodyMakeThis - Reddit</strong>
@@ -428,7 +597,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Behavioral Spending Friction App : r/AppIdeas - Reddit"' data-score='0'>
                     <td>11</td>
                     <td>
                         <strong>行为 消费 摩擦 应用 : r/应用创意s - Reddit</strong>
@@ -457,7 +626,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"I want to build something but I have NO ideas : r/AppIdeas - Reddit"' data-score='0'>
                     <td>12</td>
                     <td>
                         <strong>I 想要 to build something but I have NO 创意s : r/应用创意s - Reddit</strong>
@@ -486,7 +655,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"I built a location-based reminder app because I keep forgetting the ..."' data-score='0'>
                     <td>13</td>
                     <td>
                         <strong>I built a 位置-基于 提醒 应用 because I keep forgetting the ...</strong>
@@ -515,7 +684,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"This App Makes $40,000/Month… So I Built My Own AI App ... - Reddit"' data-score='0'>
                     <td>14</td>
                     <td>
                         <strong>This 应用 Makes $40,000/Month… So I Built My Own AI 应用 ... - Reddit</strong>
@@ -544,7 +713,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Do competitions organized for small groups of friends really need an ..."' data-score='0'>
                     <td>15</td>
                     <td>
                         <strong>Do 竞争s 整理d for small groups of friends really 需要 an ...</strong>
@@ -573,7 +742,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Inbound Spam/Scam Communication App : r/AppIdeas - Reddit"' data-score='0'>
                     <td>16</td>
                     <td>
                         <strong>入站 垃圾邮件/诈骗 通讯 应用 : r/应用创意s - Reddit</strong>
@@ -602,7 +771,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Validation of an idea for a mobile app : r/AppIdeas - Reddit"' data-score='0'>
                     <td>17</td>
                     <td>
                         <strong>Validation of an 创意 for a 移动端 应用 : r/应用创意s - Reddit</strong>
@@ -631,7 +800,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"What app do you wish existed? : r/AppIdeas - Reddit"' data-score='0'>
                     <td>18</td>
                     <td>
                         <strong>What 应用 do you 希望存在? : r/应用创意s - Reddit</strong>
@@ -660,7 +829,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"platform for founders/solo developers who ship. I'd pay for it. - Reddit"' data-score='0'>
                     <td>19</td>
                     <td>
                         <strong>平台 for 创始人s/独立开发者s who ship. I'd pay for it. - Reddit</strong>
@@ -689,7 +858,7 @@
                     </td>
                 </tr>
 
-                <tr>
+                <tr class="fade-in" data-tags='["创意"]' data-title='"Idea: Notes that work (app name is Havel ) : r/AppIdeas - Reddit"' data-score='0'>
                     <td>20</td>
                     <td>
                         <strong>创意: 笔记 that 工作 (应用 名称是 havel ) : r/应用创意s - Reddit</strong>
@@ -724,5 +893,222 @@
             * 评分基于关键词分析和热度指标 | 数据来源: Reddit 多个相关 subreddit
         </p>
     </div>
+
+    <script>
+        // 过滤和排序逻辑
+        let allItems = [{"id":"1771001475849","title":"Golden App Ideas : r/SomebodyMakeThis - Reddit","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1dwmjp2/golden_app_ideas/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"App idea: Capture random ideas quickly : r/SomebodyMakeThis","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1pspcpj/app_idea_capture_random_ideas_quickly/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"Software/App-Idea : r/SomebodyMakeThis - Reddit","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1p01jsa/softwareappidea/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"App idea: An ADHD app that lets you brain dump all your thoughts to ...","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1ph7zem/app_idea_an_adhd_app_that_lets_you_brain_dump_all/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"App idea : r/SomebodyMakeThis - Reddit","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/q3c4xu/app_idea/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"Mobile App Idea : r/SomebodyMakeThis - Reddit","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1m0669v/mobile_app_idea/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"Somebody Make This","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/","source":"Reddit: unknown","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"An app to validate your ideas and take you to product-market fit","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1ga816w/an_app_to_validate_your_ideas_and_take_you_to/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475849","title":"APP idea: Dating app for women in their 40's who want to get married","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1qvmkdz/app_idea_dating_app_for_women_in_their_40s_who/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"App Idea Validation : r/SomebodyMakeThis - Reddit","score":0,"url":"https://www.reddit.com/r/SomebodyMakeThis/comments/1gmqibc/app_idea_validation/","source":"Reddit: SomebodyMakeThis","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"Behavioral Spending Friction App : r/AppIdeas - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qq232c/behavioral_spending_friction_app/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"I want to build something but I have NO ideas : r/AppIdeas - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qlp78n/i_want_to_build_something_but_i_have_no_ideas/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"I built a location-based reminder app because I keep forgetting the ...","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qlkkli/i_built_a_locationbased_reminder_app_because_i/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"This App Makes $40,000/Month… So I Built My Own AI App ... - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qnl1c1/this_app_makes_40000month_so_i_built_my_own_ai/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"Do competitions organized for small groups of friends really need an ...","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qg2nn9/do_competitions_organized_for_small_groups_of/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"Inbound Spam/Scam Communication App : r/AppIdeas - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qn0smv/inbound_spamscam_communication_app/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"Validation of an idea for a mobile app : r/AppIdeas - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qod7ke/validation_of_an_idea_for_a_mobile_app/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"What app do you wish existed? : r/AppIdeas - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qgo09f/what_app_do_you_wish_existed/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"platform for founders/solo developers who ship. I'd pay for it. - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qk9rdo/if_you_build_this_idea_youll_become_a_millionaire/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}},{"id":"1771001475850","title":"Idea: Notes that work (app name is Havel ) : r/AppIdeas - Reddit","score":0,"url":"https://www.reddit.com/r/AppIdeas/comments/1qj7jwy/idea_notes_that_work_app_name_is_havel/","source":"Reddit: AppIdeas","tags":["创意"],"directDeploy":false,"deployment":"需要后端支持 | 建议使用Vercel/Cloudflare","targetUsers":"相关用户","businessModel":"免费+订阅制","reason":"市场需求明确，竞争格局清晰","mvp":"核心功能→基础UI→测试 | 2-3周","ratings":{"marketDemand":0,"technicalFeasibility":0,"monetization":0,"competitiveAdvantage":0,"growthPotential":0}}];
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        function filterAndSort() {
+            let filtered = allItems.filter(item => {
+                // 搜索过滤
+                const searchLower = searchQuery.toLowerCase();
+                const titleMatch = item.title.toLowerCase().includes(searchLower);
+                const tagsMatch = item.tags.some(tag => tag.toLowerCase().includes(searchLower));
+
+                if (!titleMatch && !tagsMatch) {
+                    return false;
+                }
+
+                // 标签过滤
+                if (currentFilter === 'all') {
+                    return true;
+                }
+
+                if (currentFilter === 'directDeploy') {
+                    return item.directDeploy;
+                }
+
+                if (currentFilter === 'backend') {
+                    return !item.directDeploy;
+                }
+
+                if (currentFilter === 'highScore') {
+                    return item.score >= 40;
+                }
+
+                return true;
+            });
+
+            // 排序
+            const sortValue = document.getElementById('sortSelect').value;
+            filtered.sort((a, b) => {
+                switch(sortValue) {
+                    case 'score-desc':
+                        return (b.score || 0) - (a.score || 0);
+                    case 'score-asc':
+                        return (a.score || 0) - (b.score || 0);
+                    case 'date-desc':
+                        return new Date(b.date || 0) - new Date(a.date || 0);
+                    case 'date-asc':
+                        return new Date(a.date || 0) - new Date(b.date || 0);
+                    default:
+                        return 0;
+                }
+            });
+
+            // 更新表格
+            const tbody = document.getElementById('tableBody');
+            const resultsCount = document.getElementById('resultsCount');
+
+            tbody.innerHTML = '';
+
+            filtered.forEach((item, index) => {
+                const score = item.score || 0;
+                const recClass = score >= 40 ? 'high' : score >= 35 ? 'medium' : 'low';
+                const recText = score >= 40 ? '🔥强烈推荐' : score >= 35 ? '✅推荐' : '🤔考虑';
+                const directDeployIcon = item.directDeploy ? '⚡' : '';
+
+                const row = document.createElement('tr');
+                row.className = 'fade-in';
+                row.dataset.tags = JSON.stringify(item.tags);
+                row.dataset.title = JSON.stringify(item.title);
+                row.dataset.score = item.score;
+
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>
+                        <strong>${translateToSimpleChinese(item.title)}</strong>
+                        <div style="margin-top: 4px;">
+                            <a href="${item.url}" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
+                        </div>
+                        <div class="tags">
+                            ${item.tags.map(tag => `
+                                <span class="tag">${tag}</span>
+                            `).join('')}
+                            ${directDeployIcon ? '<span class="tag" style="background: #e6f4ea; color: #1e8e3e;">⚡可直接部署</span>' : ''}
+                        </div>
+                        <div class="deployment">${item.deployment || ''}</div>
+                        <div class="target-users">👥 ${item.targetUsers || '相关用户'}</div>
+                        <div class="business-model">💰 ${item.businessModel || '免费+订阅制'}</div>
+                        <div class="reason">✅ ${item.reason || '市场需求明确'}</div>
+                        <div class="mvp">🛠️ ${item.mvp || '核心功能→基础UI→测试 | 2-3周'}</div>
+                        <div class="source">🌐 来源: ${item.source || 'Reddit'}</div>
+                    </td>
+                    <td class="score" style="font-size: 18px;">${score}</td>
+                    <td><span class="recommendation ${recClass}">${recText}</span></td>
+                    <td style="font-size: 12px;">
+                        <div class="rating-item">💰 商业: ${item.ratings?.marketDemand || 0}/10</div>
+                        <div class="rating-item">🔧 技术: ${item.ratings?.technicalFeasibility || 0}/10</div>
+                        <div class="rating-item">👥 需求: ${item.ratings?.monetization || 0}/10</div>
+                        <div class="rating-item">💡 创新: ${item.ratings?.competitiveAdvantage || 0}/10</div>
+                        <div class="rating-item">🏆 竞品: ${item.ratings?.growthPotential || 0}/10</div>
+                    </td>
+                `;
+
+                tbody.appendChild(row);
+            });
+
+            resultsCount.textContent = filtered.length;
+        }
+
+        // 搜索输入事件
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            filterAndSort();
+        });
+
+        // 标签点击事件
+        document.querySelectorAll('.filter-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+                tag.classList.add('active');
+                currentFilter = tag.dataset.filter;
+                filterAndSort();
+            });
+        });
+
+        // 排序选择事件
+        document.getElementById('sortSelect').addEventListener('change', filterAndSort);
+
+        // 初始化
+        filterAndSort();
+
+        // 简单的翻译函数
+        function translateToSimpleChinese(text) {
+            const translations = {
+                'app': '应用',
+                'idea': '创意',
+                'software': '软件',
+                'website': '网站',
+                'tool': '工具',
+                'platform': '平台',
+                'service': '服务',
+                'product': '产品',
+                'startup': '创业',
+                'business': '商业',
+                'market': '市场',
+                'user': '用户',
+                'feature': '功能',
+                'simple': '简单',
+                'easy': '容易',
+                'quick': '快速',
+                'need': '需要',
+                'want': '想要',
+                'looking for': '寻找',
+                'someone should make': '应该有人做',
+                'wish there was': '希望有',
+                'adhd': '注意力缺陷',
+                'brain dump': '思维倾倒',
+                'capture': '捕捉',
+                'organize': '整理',
+                'random': '随机',
+                'thoughts': '想法',
+                'tips': '建议',
+                'coding': '编程',
+                'mobile': '移动端',
+                'android': '安卓',
+                'golden': '黄金',
+                'useful': '有用的',
+                'million dollar': '百万美元',
+                'validated': '验证过的',
+                'engagement': '参与度',
+                'downloads': '下载量',
+                'dating': '约会',
+                'competition': '竞争',
+                'validate': '验证',
+                'reminder': '提醒',
+                'location': '位置',
+                'based': '基于',
+                'reminder app': '提醒应用',
+                'location-based reminder': '基于位置的提醒',
+                'spending': '消费',
+                'friction': '摩擦',
+                'behavioral': '行为',
+                'spam': '垃圾邮件',
+                'scam': '诈骗',
+                'communication': '通讯',
+                'inbound': '入站',
+                'founder': '创始人',
+                'solo developer': '独立开发者',
+                'millionaire': '百万富翁',
+                'notes': '笔记',
+                'work': '工作',
+                'name is': '名称是',
+                'havel': 'havel',
+                'notes that work': '有效笔记',
+                'should exist': '应该存在',
+                'wish existed': '希望存在',
+                'make this': '做这个',
+                'somebody make': '有人做',
+                'make this app': '做这个应用',
+                'make this idea': '做这个创意',
+                'make this platform': '做这个平台',
+                'make this service': '做这个服务',
+                'make this tool': '做这个工具',
+                'make this website': '做这个网站',
+                'make this software': '做这个软件'
+            };
+
+            let translated = text;
+            for (const [en, zh] of Object.entries(translations)) {
+                const regex = new RegExp(en, 'gi');
+                translated = translated.replace(regex, zh);
+            }
+
+            return translated;
+        }
+    </script>
 </body>
 </html>
