@@ -1,0 +1,34 @@
+{
+  "id": "serper-search",
+  "name": "Serper Search",
+  "version": "1.0.0",
+  "description": "使用 Google Serper API 进行网络搜索",
+  "author": "贾维斯 (Jarvis)",
+  "tags": ["search", "web", "google", "serper"],
+  "commands": [
+    {
+      "name": "serper",
+      "description": "使用 Serper 搜索网络",
+      "usage": "/serper <query>",
+      "examples": [
+        "/serper OpenAI GPT-4",
+        "/serper 人工智能最新进展"
+      ]
+    }
+  ],
+  "config": {
+    "apiKey": {
+      "type": "string",
+      "description": "Serper API Key",
+      "required": false,
+      "env": "SERPER_API_KEY"
+    }
+  },
+  "capabilities": [
+    "search",
+    "web-query"
+  ],
+  "requirements": {
+    "node": ">=14.0.0"
+  }
+}

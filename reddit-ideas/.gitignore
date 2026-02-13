@@ -2,5 +2,5 @@ node_modules/
 *.log
 .env
 *.md
-data/
-archive/
+# data/ 目录用于存储生成的HTML文件，不需要忽略
+# archive/ 目录用于存储归档文件，不需要忽略

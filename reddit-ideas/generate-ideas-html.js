@@ -2,6 +2,95 @@ const fs = require('fs');
 const path = require('path');
 
 /**
+ * 简单的英文到中文翻译函数
+ */
+function translateToSimpleChinese(text) {
+  if (!text) return text;
+
+  const translations = {
+    'app': '应用',
+    'idea': '创意',
+    'software': '软件',
+    'website': '网站',
+    'tool': '工具',
+    'platform': '平台',
+    'service': '服务',
+    'product': '产品',
+    'startup': '创业',
+    'business': '商业',
+    'market': '市场',
+    'user': '用户',
+    'feature': '功能',
+    'simple': '简单',
+    'easy': '容易',
+    'quick': '快速',
+    'need': '需要',
+    'want': '想要',
+    'looking for': '寻找',
+    'someone should make': '应该有人做',
+    'wish there was': '希望有',
+    'adhd': '注意力缺陷',
+    'brain dump': '思维倾倒',
+    'capture': '捕捉',
+    'organize': '整理',
+    'random': '随机',
+    'thoughts': '想法',
+    'tips': '建议',
+    'coding': '编程',
+    'mobile': '移动端',
+    'android': '安卓',
+    'golden': '黄金',
+    'useful': '有用的',
+    'million dollar': '百万美元',
+    'validated': '验证过的',
+    'engagement': '参与度',
+    'downloads': '下载量',
+    'dating': '约会',
+    'competition': '竞争',
+    'validate': '验证',
+    'reminder': '提醒',
+    'location': '位置',
+    'based': '基于',
+    'reminder app': '提醒应用',
+    'location-based reminder': '基于位置的提醒',
+    'spending': '消费',
+    'friction': '摩擦',
+    'behavioral': '行为',
+    'spam': '垃圾邮件',
+    'scam': '诈骗',
+    'communication': '通讯',
+    'inbound': '入站',
+    'founder': '创始人',
+    'solo developer': '独立开发者',
+    'millionaire': '百万富翁',
+    'notes': '笔记',
+    'work': '工作',
+    'name is': '名称是',
+    'havel': 'havel',
+    'notes that work': '有效笔记',
+    'should exist': '应该存在',
+    'wish existed': '希望存在',
+    'make this': '做这个',
+    'somebody make': '有人做',
+    'make this app': '做这个应用',
+    'make this idea': '做这个创意',
+    'make this platform': '做这个平台',
+    'make this service': '做这个服务',
+    'make this tool': '做这个工具',
+    'make this website': '做这个网站',
+    'make this software': '做这个软件'
+  };
+
+  let translated = text;
+  for (const [en, zh] of Object.entries(translations)) {
+    const regex = new RegExp(en, 'gi');
+    translated = translated.replace(regex, zh);
+  }
+
+  return translated;
+}
+
+/**
  * 创意广场 HTML 生成器
  * 生成今日创意、累计创意、今日需求、累计需求页面
  */
@@ -122,7 +211,7 @@ function generateHTML(data, type = 'ideas') {
                 <tr>
                     <td>${index + 1}</td>
                     <td>
-                        <strong>${item.title}</strong>
+                        <strong>${translateToSimpleChinese(item.title)}</strong>
                         <div style="margin-top: 4px;">
                             <a href="${item.url}" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
@@ -267,7 +356,7 @@ function generateAllHTML(data, type = 'ideas') {
                 <tr>
                     <td>${index + 1}</td>
                     <td>
-                        <strong>${item.title}</strong>
+                        <strong>${translateToSimpleChinese(item.title)}</strong>
                         <div style="margin-top: 4px;">
                             <a href="${item.url}" target="_blank" style="color: #666; font-size: 12px;">查看原帖 →</a>
                         </div>
@@ -446,7 +535,7 @@ function updateIndex(data) {
 </body>
 </html>`;
 
-    return html;
+    return { html, filename: 'index.html' };
 }
 
 // Main execution
@@ -470,7 +559,7 @@ try {
     const indexResult = updateIndex(data);
 
     // Write files
-    const webDir = path.join(__dirname, 'web', 'data');
+    const webDir = path.join(__dirname, 'data');
 
     fs.writeFileSync(path.join(webDir, ideasResult.filename), ideasResult.html);
     fs.writeFileSync(path.join(webDir, allIdeasResult.filename), allIdeasResult.html);
