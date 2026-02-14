@@ -563,6 +563,7 @@ try {
 
     fs.writeFileSync(path.join(webDir, ideasResult.filename), ideasResult.html);
     fs.writeFileSync(path.join(webDir, allIdeasResult.filename), allIdeasResult.html);
+    fs.writeFileSync(path.join(webDir, 'all-ideas.html'), allIdeasResult.html);
     fs.writeFileSync(path.join(webDir, demandsResult.filename), demandsResult.html);
     fs.writeFileSync(path.join(webDir, allDemandsResult.filename), allDemandsResult.html);
     fs.writeFileSync(path.join(webDir, 'index.html'), indexResult.html);
